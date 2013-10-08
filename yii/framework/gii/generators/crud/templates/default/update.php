@@ -19,7 +19,7 @@ echo "\$this->breadcrumbs=array(
 ?>
 
 $this->menu=array(
-	array('label'=>Журнал <?php echo $this->modelClass; ?>', 'url'=>array('index')),
+	array('label'=>'Журнал <?php echo $this->modelClass; ?>', 'url'=>array('index')),
 	array('label'=>'Создать <?php echo $this->modelClass; ?>', 'url'=>array('create')),
 	array('label'=>'View <?php echo $this->modelClass; ?>', 'url'=>array('view', 'id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
 	array('label'=>'Управление <?php echo $this->modelClass; ?>', 'url'=>array('admin')),

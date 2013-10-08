@@ -257,7 +257,7 @@ bottom: 3px;
 box-shadow: rgba(180, 180, 180, 0.8) 0px 3px 4px 0px;
 color: rgb(255, 255, 255);
 float: left;
-font-size: 9.21667px;
+font-size: 11.21667px;
 font-size-adjust: none;
 font-stretch: normal;
 font-style: normal;
@@ -950,7 +950,7 @@ width: 19200px;
 	}
 	.hProductItems .thumbSetting div {
 		margin-top:6px;
-	min-height: 50px;
+	min-height: 55px;
 	}
 	/* title */
 	.hProductItems .thumbSetting .thumbTitle h3 {

@@ -5,7 +5,11 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Shoppest: eCommerce Website</title>
+	<title><?php
+	$shop_id=$model->shop_id;
+$shop=Shop::model()->findByPk($shop_id);
+
+	echo $model->name."-".$shop->name;?></title>
 	<meta name="description" content="">
 	<meta name="author" content="Ahmed Saeed">
 	<!-- Mobile Specific Metas
@@ -38,8 +42,8 @@
 		<div class="main_container">
 			<h1 style="margin: 2px;"><?php echo $model->name; ?></h1>
 			<div id="logo">
-				<img alt="Shoppest" src="<?php
-$settings=Settings::model()->findByPk(1);
+				<img alt="Shoppest" height="40" src="<?php
+				$settings=Settings::model()->findByPk(1);
 				echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $settings->img_logo_url; ?>"></img>
 			</div>
 			
@@ -56,7 +60,7 @@ $settings=Settings::model()->findByPk(1);
                 </strong>
                 <div class="links">
 					<div class="share42init"></div>
-					<script type="text/javascript" src="http://vamskidka.com.ua/wp-content/themes/kupon/share42/share42.js"></script> 
+					<script type="text/javascript"  src="http://primekupon-test.in.ua/js/share42/share42.js"></script> 
                 </div>
             </div>		
             
@@ -76,7 +80,13 @@ $settings=Settings::model()->findByPk(1);
 								$offer_id=$model->offer_id;
 								$settings=Settings::model()->findByPk(1);
 								$partner_id=$settings->partner_id;
-								echo "http://primeadv.go2cloud.org/aff_c?offer_id=$offer_id&aff_id=$partner_id"; ?> style="height:700px">Ваш браузер не поддерживает плавающие фреймы!</iframe>
+								$kupon_url=$model->kupon_url;
+								if (strlen($offer_id)>1)
+								{if (strlen($kupon_url)<1)
+								{echo "http://primeadv.go2cloud.org/aff_c?offer_id=$offer_id&aff_id=$partner_id";}
+								else
+								{echo "http://primeadv.go2cloud.org/aff_c?offer_id=$offer_id&aff_id=$partner_id&url=$kupon_url";}}
+								else {echo "$kupon_url";}?>" style="height:700px">Ваш браузер не поддерживает плавающие фреймы!</iframe>
                             </td>
                         </tr>
                         </table>

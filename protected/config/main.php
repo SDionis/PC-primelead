@@ -42,15 +42,17 @@ return array(
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
+		'class' => 'MyUrlManager', 
 			'urlFormat'=>'path',
 		
 			'rules'=>array(
+				 'kupon/category/<kategoriya:.+>' => 'kupon/index',
+				'kupon/site/<translit_url:.+>' => 'category/kupon/view',
+				'kupon/<translit_url:.+>' => 'kupon/name',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			'kupon/<translit_url:.+>' => 'category/kupon/view',
-			 'kupon/<kategoriya:.+>'=>'kupon/index',
-			//'shop' => 'shop/view',
+				'shop/<translit_url:.+>' => 'shop/view',
 			),
 		),
 		/*

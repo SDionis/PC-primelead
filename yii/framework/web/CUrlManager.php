@@ -758,7 +758,7 @@ class CUrlRule extends CBaseUrlRule
 
 		foreach($this->params as $key=>$value)
 		{
-			$tr["<$key>"]=urlencode($params[$key]);
+			$tr["<$key>"]=str_replace('%2F','/',urlencode($params[$key]));
 			unset($params[$key]);
 		}
 

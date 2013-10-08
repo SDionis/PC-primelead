@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `pok_settings` (
 --
 
 INSERT INTO `pok_settings` (`site_name`, `email_admin`, `site_description`, `ID`, `partner_id`, `admin_login`, `admin_user`, `main_new_kupons`, `main_popular_kupons`, `img_logo_url`, `Google_Analitics_Code`, `Yandex_Metrika_Code`) VALUES
-('Shoppest: скидки и продажа купонов', '', '', 1, 1764, '', '', 5, 4, 'Wednesday-25th-2013f-September-2013-03-12-36-PM.png', '', '');
+('Shoppest: скидки и продажа купонов', '', '', 1,'', '', '', 5, 4, 'Wednesday-25th-2013f-September-2013-03-12-36-PM.png', '', '');
 
 -- --------------------------------------------------------
 

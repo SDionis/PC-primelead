@@ -46,7 +46,8 @@ class Kategoriya extends CActiveRecord
 		// class name for the relations automatically generated below.
 			return array(
 'kupon'=>array(self::HAS_MANY, 'kupon', 'categorry_id'),
-'Childs' => array(self::HAS_MANY, 'kategoriya', 'parent_id'),
+'Childs' => array(self::HAS_MANY, 'Kategoriya', 'parent_id'),
+'kategoriya' => array(self::HAS_MANY, 'Kategoriya', 'id'),
 );
 }
 	/**

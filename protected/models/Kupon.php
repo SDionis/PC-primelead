@@ -69,7 +69,7 @@ class Kupon extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		'kategoriya' => array(self::BELONGS_TO, 'kategoriya', 'categorry_id'),
+		'kategoriya' => array(self::BELONGS_TO, 'Kategoriya', 'categorry_id'),
 		'shop' => array(self::BELONGS_TO, 'Shop', 'shop_id'),
 		'KuponType' => array(self::BELONGS_TO, 'KuponType', 'type_id'),
 		);

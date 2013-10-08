@@ -1,6 +1,12 @@
 <?php
-$this->pageTitle = $model->title_tag;
-//$this->Keywords = $model->title_tag;
+if (strlen($model->title_tag)>1)
+{$this->pageTitle = $model->title_tag;}
+else {
+$Criteria = new CDbCriteria();
+$shop_id=$model->shop_id;
+$Criteria->condition = "id = $shop_id";
+$shop = Shop::model()->find($Criteria);
+$this->pageTitle = $model->name." в магазине ".$shop->name;}
 $this->pageDescription = $model->description_tag;
 $this->pageKeywords=$model->keywords_tag;
 ?>
@@ -90,7 +96,7 @@ $this->pageKeywords=$model->keywords_tag;
 									
 	<?php 
 	$translit_url=$model->translit_url;
-	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/'.urlencode($model->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
+	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/site/'.urlencode($model->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
 
 											
 											
@@ -202,7 +208,7 @@ foreach ($Kupon AS $data)
 									
 	<?php 
 	$translit_url=$data->translit_url;
-	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/'.urlencode($model->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
+	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/site/'.urlencode($model->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
 
 											
 											
