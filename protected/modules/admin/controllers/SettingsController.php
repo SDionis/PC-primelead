@@ -130,7 +130,7 @@ public function post_logo($id, $img_logo_url, $height, $class='post_img'){
 			if ($model->logo_icon){				
 					//сохранить файл на сервере в каталог images/2011 под именем 
 					//month-day-alias.jpg
-					$file ='E:/xampp/htdocs/top-class/good-click/images/'.$fileName;
+					$file ="images/$fileName";
 					$model->logo_icon->saveAs($file);
 				}
 			//	$this->redirect(array('view','id'=>$model->ID));

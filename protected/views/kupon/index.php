@@ -15,7 +15,7 @@ $this->menu=array(
 	<div class="span9">
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-	'sortableAttributes' => array('finish_date'), 
+	'itemView'=>'_view'
+	//'sortableAttributes' => array('finish_date'), 
 )); ?>
 	</div><!--end span9-->

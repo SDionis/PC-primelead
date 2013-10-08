@@ -5,8 +5,20 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title><?php $settings=Settings::model()->findByPk(1);
-echo $settings->site_name; ?></title>
+	<?php
+ if (!empty($this->pageCategoryTitle))
+{
+  echo "<title> $this->pageCategoryTitle - скидки и промокоды в Киеве и Украине </title>";
+}
+else if (!empty($this->pageTitle))
+{echo "<title> $this->pageTitle </title>";}
+else
+ {  
+ $settings=Settings::model()->findByPk(1);
+ $site_name=$settings->site_name;
+ echo "<title>$site_name</title>";}
+?>
+
 <?php
  if (!empty($this->pageDescription))
 {
@@ -15,7 +27,9 @@ echo $settings->site_name; ?></title>
  
 ?>
  <meta name="keywords" content="<?php 
- //echo $this->pageKeywords; 
+  if (!empty($this->pageKeywords))
+{
+echo $this->pageKeywords; }
  ?>">
 	<!-- Mobile Specific Metas
   ================================================== -->
@@ -61,7 +75,8 @@ echo $settings->site_name; ?></title>
 					
 
 					<div class="pull-right">
-						<form method="get" action="http://test.raido.biz.ua/good-click/site/search" class="siteSearch">
+					
+						<form method="get" action="<?php echo Yii::app()->request->baseUrl; ?>/site/search" class="siteSearch">
 							<div class="input-append">
 								<input type="text"  name="searchtext" class="span2" id="appendedInputButton" placeholder="Начните поиск...">
 								<button class="btn" type="submit" name=""><i class="icon-search"></i></button>
@@ -77,13 +92,14 @@ echo $settings->site_name; ?></title>
 					<div class="navbar">
 
 						<div class="siteLogo pull-left">
-							<h1><a href="<?php echo Yii::app()->request->baseUrl; ?>"><img src="<?php 
+							<h1><a href="<?php echo Yii::app()->homeUrl; ?>"><img src="<?php 
 							$settings=Settings::model()->findByPk(1);
 							
-							echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $settings->img_logo_url; ?>" alt="Shoppest" height="35px"></a></h1>
+							echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $settings->img_logo_url; ?>" alt="" height="35px"></a></h1>
 						</div>
 					    
 				      <?php 
+					  $home=Yii::app()->homeUrl;
 					 if (strstr($_SERVER['REQUEST_URI'], '/kupon'))
 					 {$a='active';} 
 					 else {$a='';}
@@ -93,7 +109,7 @@ echo $settings->site_name; ?></title>
 					$this->widget('zii.widgets.CMenu',array(
                     'htmlOptions' => array( 'class' => 'nav'),
                     'items'=>array(
-                        array('label'=>'Главная', 'url'=>array('/site/index')),
+                        array('label'=>'Главная', 'url'=>($home)),
             	        array('label'=>'Промокоды', 'url'=>array('/kupon'),'itemOptions' => array( 'class' => $a)),
 			         	array('label'=>'Магазины', 'url'=>array('/shop'),'itemOptions' => array( 'class' => $b)),
 			         	//array('label'=>'Авторизироваться', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
@@ -129,7 +145,6 @@ echo $settings->site_name; ?></title>
 						<li class="electron"></li>
 						<li class="discover"></li>
 					</ul>
-					<p>© Copyrights 2012 for <a href="index.html">shoppest.com</a></p>
 				</div>
 			</div>
 	</div>

@@ -154,16 +154,37 @@ public function post_image($id, $img_url, $width){
 
 {
 $translit_url=$_GET['kategoriya'];
+$translit_url=array_pop(explode("/",$translit_url));
+
 $Criteria = new CDbCriteria();
 $Criteria->condition = "translit_url LIKE '$translit_url'";
-$kategoriya_id = kategoriya::model()->findAll($Criteria);
+$kategoriya_id = Kategoriya::model()->findAll($Criteria);
 foreach ($kategoriya_id AS $stroka)
-{$id_kategory=$stroka->id;}
+{$id_kategory=$stroka->id;
+$this->pageCategoryTitle=$stroka->name;
+}
+$Criteria = new CDbCriteria();
+$Criteria->condition = "parent_id=$id_kategory";
+$kategoriya_child_id = Kategoriya::model()->findAll($Criteria);
+if (!empty ($kategoriya_child_id ))
+{
+$child_id=array();
+foreach ($kategoriya_child_id AS $child_stroka)
+{$child_id[]=$child_stroka->id;}
+$child_id2 = implode(",",$child_id);
+//echo $child_id2;
 $criteria=new CDbCriteria(array(
+'condition'=>"categorry_id IN ($child_id2)",
+'with' => array('kategoriya'),
+));
+}
+
+else
+{$criteria=new CDbCriteria(array(
 'condition'=>'categorry_id=:id',
 'params' => array(':id'=>(int)$id_kategory),
 'with' => array('kategoriya'),
-));
+));}
 }         
 else
 { //Пользователь ничего не выбрал из меню
@@ -211,11 +232,25 @@ $criteria=new CDbCriteria(array(
  
    public static function getMenuTree() {
         if (empty(self::$menuTree)) {
-            $rows = kategoriya::model()->findAll('parent_id=0');
+		$criteria = new CDbCriteria;
+$criteria->with = array('kupon',
+                        'kategoriya');
+$criteria->together = true; // ADDED THIS
+$criteria->condition = "  kategoriya.parent_id=0";
+$criteria->order = "kategoriya.id ASC";
+            $rows = Kategoriya::model()->findAll($criteria);
 		
             foreach ($rows as $item) {
-			
-                self::$menuTree[] = self::getMenuItems($item);
+			$parent_id=$item->id;
+			$criteria = new CDbCriteria;
+$criteria->with = array('kupon',
+                        'kategoriya');
+$criteria->together = true; // ADDED THIS
+$criteria->condition = "kategoriya.parent_id=$parent_id AND kategoriya.id=kupon.categorry_id OR kategoriya.id=$parent_id AND kategoriya.id=kupon.categorry_id";
+$criteria->order = "kategoriya.id ASC";
+            $rows2 = Kategoriya::model()->find($criteria);
+			 if (!empty($rows2))
+               			  { self::$menuTree[] = self::getMenuItems($item);}
             }
         }
         return self::$menuTree;
@@ -223,22 +258,47 @@ $criteria=new CDbCriteria(array(
  
     private static function getMenuItems($modelRow) {
   
-
-
         if (!$modelRow)
             return;
  
         if (isset($modelRow->Childs)) {
-            $chump = self::getMenuItems($modelRow->Childs);
+		
+		 $child= $modelRow->Childs;
+		 $newchilds=array();
+			    foreach ($child as $childitem) {
+				$id=$childitem->id;
+				$Criteria = new CDbCriteria();
+$Criteria->condition = "categorry_id = $id";
+$Kupon = Kupon::model()->findAll($Criteria);
+if (!Empty($Kupon))
+			{$newchilds[]=$childitem;}
+            }
+	//print_r($newchilds);
+            $chump = self::getMenuItems($newchilds);
+			
             if ($chump != null)
                { 
+			 
 			   $id=$modelRow->id;
 $kuponcount=Kupon::model()->count('categorry_id=:categorry_id', array(':categorry_id'=>$id));
+$Criteria = new CDbCriteria();
+$Criteria->condition = "parent_id=$id";
+$models = Kategoriya::model()->findAll($Criteria);
+$counter=0;
+foreach ($models AS $pod_item)
+{
+$pod_id=$pod_item->id;
+
+$kuponcount2=Kupon::model()->count('categorry_id=:categorry_id', array(':categorry_id'=>$pod_id));
+$counter=$counter+$kuponcount2;
+}
+$kuponcount=$kuponcount+$counter;
 			   $res = array('label' => $modelRow->name." ($kuponcount)", 'items' => $chump, 'url' => Yii::app()->createUrl('kupon/index', array('kategoriya' => $modelRow->translit_url)),'linkOptions'=>array('class'=>'invarseColor'));}
             else
               {     
 $id=$modelRow->id;
 $kuponcount=Kupon::model()->count('categorry_id=:categorry_id', array(':categorry_id'=>$id));
+
 				$res = array('label' => $modelRow->name." ($kuponcount)", 'url' => Yii::app()->createUrl('kupon/index', array('kategoriya' => $modelRow->translit_url)),'linkOptions'=>array('class'=>'invarseColor'));}
             return $res;
         } else {
@@ -272,9 +332,17 @@ $kuponcount=Kupon::model()->count('categorry_id=:categorry_id', array(':categorr
             else
               {     
 $id=$modelRow->id;
+$parent_id=$modelRow->parent_id;
+$Criteria = new CDbCriteria();
+$Criteria->condition = "id=$parent_id";
+$model_parent = Kategoriya::model()->find($Criteria);
+$parent_translit=$model_parent->translit_url."/";
+$url=Yii::app()->createUrl('kupon/index', array('kategoriya' =>$parent_translit.$modelRow->translit_url));
+$url=preg_replace('|\%2F|i', '/', $url);
 $kuponcount=Kupon::model()->count('categorry_id=:categorry_id', array(':categorry_id'=>$id));
-				$res = array('label' => "<i class='icon-caret-right'></i>".$modelRow->name." ($kuponcount)", 'url' => Yii::app()->createUrl('kupon/index', array('kategoriya' => $modelRow->translit_url)),'linkOptions'=>array('class'=>'invarseColor'));}
-            return $res;
+				$res = array('label' => "<i class='icon-caret-right'></i>".$modelRow->name." ($kuponcount)", 'url' => $url,'linkOptions'=>array('class'=>'invarseColor'));}
+            //  $res = preg_replace('|\%2F|i', '/', $res); 
+			return $res;
         } else {
             if (is_array($modelRow)) {
                 $arr = array();
