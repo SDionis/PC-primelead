@@ -247,7 +247,7 @@ public function post_image($id, $img_url, $width='150', $class='post_img'){
 {
  
 
-$filePath = 'http://test.raido.biz.ua/pokupon/export.csv'; 
+$filePath = 'http://primekupon.com.ua/export.csv'; 
 $row = 1;
 $model=new Kupon;
 $model->id="12000";
@@ -280,7 +280,7 @@ $model->save();
 }
 }}
 
-$filePath = 'http://test.raido.biz.ua/pokupon/export2.csv'; 
+$filePath = 'http://primekupon.com.ua/export2.csv'; 
 $row = 1;
 $model=new Shop;
 $model->id="12000";
@@ -308,7 +308,7 @@ $model->save();}
 
 
 
-$filePath = 'http://test.raido.biz.ua/pokupon/export3.csv'; 
+$filePath = 'http://primekupon.com.ua/export3.csv'; 
 $row = 1;
 $model=new Kategoriya;
 $model->id="12000";
@@ -330,7 +330,7 @@ $model->save();}
 }
 }
 }
-$filePath = 'http://test.raido.biz.ua/pokupon/export4.csv'; 
+$filePath = 'http://primekupon.com.ua/export4.csv'; 
 $row = 1;
 $model=new KuponType;
 $model->id="12000";
