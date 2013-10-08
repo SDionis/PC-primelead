@@ -1,2 +1,0 @@
-<iframe id="frmShop" scrolling="1" noresize="0" width="100%" frameborder="0" src="http://ad.admitad.com/goto/31be01538d82881dad137d95a12660/?subid=vamskidka" style="height:700px">Ваш браузер не поддерживает плавающие фреймы!</iframe>
-                           

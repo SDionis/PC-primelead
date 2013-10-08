@@ -66,7 +66,7 @@ class KuponController extends Controller
 $data = CHtml::listData($data, 'id', 'name');
  $model = new Kupon();
  if(!$data){
-        echo CHtml::activeHiddenField($product_model, 'categorry_id', array('value'=>$_POST['uplevel_id']));
+      //  echo CHtml::activeHiddenField($product_model, 'categorry_id', array('value'=>$_POST['uplevel_id']));
     } else {
        echo CHtml::activeDropDownList( $model,
             'categorry_id',
@@ -109,7 +109,7 @@ $model->date_create=date_format($date, 'Y-m-d H:i:s');
 		{	if ($model->icon){				
 					//сохранить файл на сервере в каталог images/2011 под именем 
 					//month-day-alias.jpg
-					$file ='E:/xampp/htdocs/top-class/good-click/images/'.$fileName;
+					$file ="images/$fileName";
 					$model->icon->saveAs($file);
 				}
 				$this->redirect(array('view','id'=>$model->id));}
@@ -144,7 +144,7 @@ $model->date_create=date_format($date, 'Y-m-d H:i:s');
 			if ($model->icon){				
 					//сохранить файл на сервере в каталог images/2011 под именем 
 					//month-day-alias.jpg
-					$file ='E:/xampp/htdocs/top-class/good-click/images/'.$fileName;
+					$file ="images/$fileName";
 					$model->icon->saveAs($file);
 				}
 			if($model->save())
@@ -272,6 +272,7 @@ $model->type_id=iconv('windows-1251','utf-8',$data[10]);
 $model->img_url=iconv('windows-1251','utf-8',$data[11]);
 $model->id=iconv('windows-1251','utf-8',$data[12]);
 $model->offer_id=iconv('windows-1251','utf-8',$data[13]);
+$model->kupon_url=iconv('windows-1251','utf-8',$data[14]);
 $id=iconv('windows-1251','utf-8',$data[12]);
 $id=iconv('windows-1251','utf-8',$data[12]);
 $model2=Kupon::model()->FindAll('id=:id', array(':id'=>$id));
@@ -349,7 +350,22 @@ if  (empty($model2)){
 $model->save();}
 }
 }
- header('Location: http://test.raido.biz.ua/good-click/index.php/admin');
+$base_url=Yii::app()->request->baseUrl;
+$kupon=Kupon::model()->FindAll();
+foreach($kupon AS $item)
+{
+$pic=$item->img_url;
+if(strlen($pic)>1)
+{file_put_contents("images/$pic",file_get_contents("http://primekupon.com.ua/images/$pic"));}
+}
+$kupon=Shop::model()->FindAll();
+foreach($kupon AS $item)
+{
+$pic=$item->image;
+if (strlen($pic)>1)
+{file_put_contents("images/$pic",file_get_contents("http://primekupon.com.ua/images/$pic"));} 
+}
+ header('Location: /admin');
 }
 
 

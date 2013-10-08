@@ -38,7 +38,7 @@ foreach ($shops AS $shop_element)
 {
 $base_url=Yii::app()->request->baseUrl;
 $image=$shop_element->image;
-echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/view/translit_url/$shop_element->translit_url'  target='_blank'><span class='mgs'>$shop_element->name</span>
+echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/$shop_element->translit_url'  target='_blank'><span class='mgs'>$shop_element->name</span>
 <img alt='$shop_element->name' src='$base_url/images/$image'></a>   ";}
 echo "</p><hr>";
 }}
@@ -57,7 +57,7 @@ foreach ($shops AS $shop_element)
 {
 $base_url=Yii::app()->request->baseUrl;
 $image=$shop_element->image;
-echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/view/translit_url/$shop_element->translit_url' target='_blank'><span class='mgs'>$shop_element->name</span>
+echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/$shop_element->translit_url' target='_blank'><span class='mgs'>$shop_element->name</span>
 <img alt='$shop_element->name' src='$base_url/images/$image'></a>   ";}
 echo "</p><hr>";
 }}
@@ -74,7 +74,7 @@ foreach ($shops AS $shop_element)
 {
 $base_url=Yii::app()->request->baseUrl;
 $image=$shop_element->image;
-echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/view/translit_url/$shop_element->translit_url'  target='_blank'><span class='mgs'>$shop_element->name</span>
+echo "<p><a class='invarseColor' title='$shop_element->name' href='$base_url/shop/$shop_element->translit_url'  target='_blank'><span class='mgs'>$shop_element->name</span>
 <img alt='$shop_element->name' src='$base_url/images/$image'></a>   ";}
 echo "</p><hr>";
 }}?>

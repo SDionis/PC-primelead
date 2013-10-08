@@ -53,7 +53,7 @@ foreach($model AS $stroka)
 ?>
 								<li class="span3 clearfix">
 									<div class="thumbnail">
-										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/name?translit_url=<?php echo $stroka->translit_url;?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka->img_url; ?>" alt=""></a>
+										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/<?php echo $stroka->translit_url;?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka->img_url; ?>" alt=""></a>
 									</div>
 									<div class="thumbSetting">
 										<div class="thumbTitle">
@@ -81,7 +81,7 @@ foreach($model AS $stroka)
 
 										<?php	
 										$path=Yii::app()->request->baseUrl;
-										echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/'.urlencode($stroka->translit_url).'")','class'=>'btn btn-primary btn-small btn-block')); 
+										echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/site/'.urlencode($stroka->translit_url).'")','class'=>'btn btn-primary btn-small btn-block')); 
 										?>
 
 										</div>
@@ -134,12 +134,14 @@ foreach($model AS $stroka)
 ?>
 								<li class="span3 clearfix">
 									<div class="thumbnail">
-										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/name?translit_url=<?php echo $stroka->translit_url;?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka->img_url; ?>" alt=""></a>
+										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/<?php echo $stroka->translit_url;?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka->img_url; ?>" alt=""></a>
 									</div>
 									<div class="thumbSetting">
 										<div class="thumbTitle">
 											<h3>
-											<?php echo CHtml::link(CHtml::encode($stroka->name), array('kupon/name', 'translit_url'=>$stroka->translit_url), array('target'=>'_blank', 'class'=>'invarseColor')); ?>
+											<?php $base_url=Yii::app()->request->baseUrl;
+											echo "<a class='invarseColor' title='$stroka->name' href='$base_url/kupon/$stroka->translit_url'  target='_blank'>$stroka->name</a>"; ?>
+											
 											</h3>
 										</div>
 									
@@ -157,7 +159,7 @@ foreach($model AS $stroka)
 
 										<div class="thumbButtons">
 											<?php	$path=Yii::app()->request->baseUrl;
-										echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/'.urlencode($stroka->translit_url).'")','class'=>'btn btn-primary btn-small btn-block'));  ?>
+										echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/site/'.urlencode($stroka->translit_url).'")','class'=>'btn btn-primary btn-small btn-block'));  ?>
 
 										</div>
 									</div>
@@ -190,7 +192,7 @@ for(var i=0; i<lis.length; i++) {
 }
 
 /* конфигурация */
-var width = 235; // ширина изображения
+var width = 240; // ширина изображения
 var count = 1; // количество изображений
 
 var ul = document.getElementById('images');
@@ -241,7 +243,7 @@ $model=Shop::model()->FindAll($Criteria);
 						foreach ($model AS $stroka_shop)
 						{?>
 							<li>
-								<a href="<?php echo Yii::app()->request->baseUrl; ?>/shop/view/translit_url/<?php  echo $stroka_shop->translit_url; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka_shop->image; ?>" alt="logo"></a>
+								<a href="<?php echo Yii::app()->request->baseUrl; ?>/shop/<?php  echo $stroka_shop->translit_url; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/<?php  echo $stroka_shop->image; ?>" alt="logo"></a>
 							</li><?php } ?>
 							</ul>
 							 </div>
@@ -249,12 +251,6 @@ $model=Shop::model()->FindAll($Criteria);
 					</div><!--end brands-->
 				</div><!--end span12-->
 			</div><!--end row-->
-
-
-
-
-
-
 
 
 	<!-- JS

@@ -1,7 +1,12 @@
 <?php
 /* @var $this ShopController */
 /* @var $model Shop */
+$this->pageTitle = $model->title_tag;
 
+if (strlen($model->description_tag)>1)
+{$this->pageDescription = $model->description_tag;}
+if (strlen($model->keywords_tag)>1)
+{$this->pageKeywords=$model->keywords_tag;}
 $this->breadcrumbs=array(
 	'Shops'=>array('index'),
 	$model->translit_url,
@@ -9,7 +14,14 @@ $this->breadcrumbs=array(
 
 ?>
 
-
+<?php
+if (strlen($model->title_tag)>1)
+{$this->pageTitle = $model->title_tag;}
+else {
+$this->pageTitle = $model->name.". Скидки, акции и промокоды в магазине ".$model->name;}
+$this->pageDescription = $model->description_tag;
+$this->pageKeywords=$model->keywords_tag;
+?>
 	<div class="span9">
 	<div class="row">
 						<ul class="listProductItems clearfix">
@@ -78,7 +90,7 @@ foreach ($Kupon AS $data)
 										<div class="thumbTitle">
 											<h3>
 											
-									<?php echo CHtml::link(CHtml::encode($data->name), array('category/kupon/view', 'translit_url'=>$data->translit_url), array('target'=>'_blank', 'class'=>'invarseColor')); ?>
+									<?php echo CHtml::link(CHtml::encode($data->name), array('kupon/name', 'translit_url'=>$data->translit_url), array('target'=>'_blank', 'class'=>'invarseColor')); ?>
 											
 											
 											</h3>
@@ -149,7 +161,7 @@ foreach ($Kupon AS $data)
 										$path=Yii::app()->request->baseUrl;
 									
 
-	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/'.urlencode($data->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
+	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$path.'/kupon/site/'.urlencode($data->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
 
 											
 											

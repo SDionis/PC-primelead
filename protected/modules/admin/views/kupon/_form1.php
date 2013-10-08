@@ -26,15 +26,30 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 	
-	
-	
-	
-	
-	<div class="row">
+		<div class="row">
 		<?php echo $form->labelEx($model,'categorry_id'); ?>
-		<?php echo CHtml::activeDropDownList($model,
+		<?php 
+		$prompt="Выберите категорию";
+		echo CHtml::activeDropDownList($model,
      'categorry_id',
      CHtml::listData(Kategoriya::model()->findAll(array('condition'=>'parent_id=0', 'order'=>'name ASC')), 'id', 'name'),
+     array('prompt'=>"$prompt",
+	 'class'=>'droplist',
+          'onchange'=> CHtml::ajax(array('type'=>'POST',
+               'url'=>CController::createUrl('podkategory'),
+               'data' => array('uplevel_id' => 'js:$(this).val()'),
+               'update'=> '#subcat_0',
+			   ))
+     )
+);?>
+<?php
+$home=Yii::app()->request->baseUrl;
+$text="   Добавить категорию";
+ echo CHtml::link(CHtml::encode($text), $home."/admin/kategoriya/create", array('target'=>'_blank')); ?>
+<div id="subcat_0">
+		<?php echo CHtml::activeDropDownList($model,
+     'categorry_id',
+     CHtml::listData(Kategoriya::model()->findAll(array('condition'=>'parent_id>0', 'order'=>'name ASC')), 'id', 'name'),
      array('prompt'=>'Выберите категорию',
 	 'class'=>'droplist',
           'onchange'=> CHtml::ajax(array('type'=>'POST',
@@ -43,16 +58,12 @@
                'update'=> '#subcat_0',
 			   ))
      )
-);?><?php
-$home=Yii::app()->request->baseUrl;
-$text="  Добавить категорию";
- echo CHtml::link(CHtml::encode($text), $home."/admin/kategoriya/create", array('target'=>'_blank')); ?>
-<div id="subcat_0"></div>
+);?>
+</div>
 <?php echo $form->error($model,'categorry_id'); ?>
+
 </div>
 	
-	
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'shop_id'); ?>
 		<?php

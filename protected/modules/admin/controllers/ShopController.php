@@ -78,7 +78,7 @@ class ShopController extends Controller
 			if ($model->icon){				
 					//сохранить файл на сервере в каталог images/2011 под именем 
 					//month-day-alias.jpg
-					$file ='E:/xampp/htdocs/top-class/good-click/images/'.$fileName;
+					$file ="images/$fileName";
 					$model->icon->saveAs($file);
 				}
 				$this->redirect(array('view','id'=>$model->id));}
@@ -110,7 +110,16 @@ class ShopController extends Controller
 			$url=$this->transliterate($model->name);
 			//$model2=Shop::model()->Find('translit_url=:translit_url', array(':translit_url'=>$url));
 			$model->translit_url=$url;}
-			if($model->save())
+			if($model->save()){
+			if ($model->icon){				
+					//сохранить файл на сервере в каталог images/2011 под именем 
+					//month-day-alias.jpg
+					$file ="images/$fileName";
+					$model->icon->saveAs($file);
+				}
+				$this->redirect(array('view','id'=>$model->id));}
+		}
+		
 				$this->redirect(array('view','id'=>$model->id));
 		}
 

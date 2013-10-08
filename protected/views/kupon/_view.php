@@ -8,7 +8,7 @@
 							<li class="clearfix">
 								<div class="span3">
 									<div class="thumbnail">
-										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/name?translit_url=<?php echo $data->translit_url;?>"><?php if (strlen($data->img_url)>1)
+										<a href="<?php echo Yii::app()->request->baseUrl; ?>/kupon/<?php echo $data->translit_url;?>"><?php if (strlen($data->img_url)>1)
 			{echo $this->post_image($data->id, $data->img_url, '212');}
 			else
 			{
@@ -91,7 +91,7 @@
 	<?php 
 	$link=Yii::app()->request->baseUrl;
 	$translit_url=$data->translit_url;
-	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/'.urlencode($data->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
+	echo CHtml::htmlButton('ПОСМОТРЕТЬ',  array('submit'=>'','onclick' => 'js:window.open("'.$link.'/kupon/site/'.urlencode($data->translit_url).'")','class'=>'btn btn-primary btn-small')); ?>
 
 											
 											
